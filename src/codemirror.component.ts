@@ -25,7 +25,7 @@ import * as CodeMirror from 'codemirror';
       multi: true
     }
   ],
-  template: `<textarea #host></textarea>`,
+  template: `<textarea #host placeholder="{{placeholder}}"></textarea>`,
 })
 export class CodemirrorComponent {
 
@@ -39,6 +39,7 @@ export class CodemirrorComponent {
   @Output() instance = null;
 
   _value = '';
+  placeholder = '';
 
   /**
    * Constructor
@@ -73,6 +74,9 @@ export class CodemirrorComponent {
    * Initialize codemirror
    */
   codemirrorInit(config){
+    if( typeof config.placeholder !== 'undefined' ) {
+      this.placeholder = config.placeholder;
+    }
     this.instance = CodeMirror.fromTextArea(this.host.nativeElement, config);
     this.instance.setValue(this._value);
 
